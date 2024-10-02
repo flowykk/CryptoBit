@@ -20,19 +20,141 @@ struct DetailLoadingView: View {
 }
 
 struct DetailView: View {
-    @StateObject var vm: DetailViewModel
+    @StateObject private var vm: DetailViewModel
+    @State private var showFullDescription = false
+    
+    private let columns: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    private let spacing: CGFloat = 30
     
     init(coin: Coin) {
         _vm = StateObject(wrappedValue: DetailViewModel(coin: coin))
     }
     
     var body: some View {
-        Text("h")
+        ScrollView {
+            VStack {
+                ChartView(coin: vm.coin)
+                    .padding(.vertical)
+                
+                VStack(spacing: 20) {
+                    overviewTitle
+                    Divider()
+                    description
+                    overviewGrid
+                    
+                    additionalTitle
+                    Divider()
+                    additionalGrid
+                    websiteSection
+                }
+                .padding()
+            }
+        }
+        .navigationTitle(vm.coin.name)
+    }
+}
+
+extension DetailView {
+    private var websiteSection: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            if let websiteString = vm.websiteURL,
+               let url = URL(string: websiteString) {
+                Link("Website", destination: url)
+            }
+            
+            if let redditString = vm.redditURL,
+               let url = URL(string: redditString) {
+                Link("Reddit", destination: url)
+            }
+        }
+        .accentColor(.blue)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var description: some View {
+        ZStack {
+            if let coinDescription = vm.coinDescription, !coinDescription.isEmpty {
+                VStack {
+                    Text(coinDescription)
+                        .lineLimit(showFullDescription ? nil : 3)
+                        .font(.callout)
+                        .foregroundColor(Colors.secondaryTextColor)
+                    
+                    Button(action: {
+                        HapticManager.shared.impact(style: .heavy)
+                        withAnimation(.easeInOut) {
+                            showFullDescription.toggle()
+                        }
+                    }, label: {
+                        Text(showFullDescription ? "Show less" : "Read more...")
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .padding(.vertical, 4)
+                    })
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+        }
+    }
+    
+    private var descritpionTitle: some View {
+        Text("Description")
+            .font(.title)
+            .bold()
+            .foregroundColor(Color.accentColor)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var overviewTitle: some View {
+        Text("OverView")
+            .font(.title)
+            .bold()
+            .foregroundColor(Color.accentColor)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var overviewGrid: some View {
+        LazyVGrid(
+            columns: columns,
+            alignment: .leading,
+            spacing: spacing,
+            pinnedViews: [],
+            content: {
+                ForEach(vm.overviewStatistics) { stat in
+                    StatisticView(stat: stat)
+                }
+        })
+    }
+    
+    private var additionalTitle: some View {
+        Text("Additional Details")
+            .font(.title)
+            .bold()
+            .foregroundColor(Color.accentColor)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var additionalGrid: some View {
+        LazyVGrid(
+            columns: columns,
+            alignment: .leading,
+            spacing: spacing,
+            pinnedViews: [],
+            content: {
+                ForEach(vm.additionalStatistics) { stat in
+                    StatisticView(stat: stat)
+                }
+        })
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(coin: dev.coin)
+        NavigationView {
+            DetailView(coin: dev.coin)
+        }
     }
 }
