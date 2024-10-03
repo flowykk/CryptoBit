@@ -24,9 +24,8 @@ final class NetworkManager {
     
     static func download(url: URL) -> AnyPublisher<Data, Error> {
         URLSession.shared.dataTaskPublisher(for: url)
-            .subscribe(on: DispatchQueue.global(qos: .default))
             .tryMap({ try handleURLResponse(output: $0, url: url) })
-            .receive(on: DispatchQueue.main)
+            .retry(3)
             .eraseToAnyPublisher()
     }
     
@@ -39,7 +38,7 @@ final class NetworkManager {
         return output.data
     }
     
-    static func handleCompetion(completion: Subscribers.Completion<Error>) {
+    static func handleCompletion(completion: Subscribers.Completion<Error>) {
         switch completion {
         case .finished:
             break

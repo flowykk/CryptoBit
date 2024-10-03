@@ -34,7 +34,8 @@ final class CoinDataService {
         guard components.url != nil else { return }
         coinSubscription = NetworkManager.download(url: components.url!)
             .decode(type: [Coin].self, decoder: JSONDecoder())
-            .sink(receiveCompletion: NetworkManager.handleCompetion, receiveValue: { [weak self] allCoins in
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: NetworkManager.handleCompletion, receiveValue: { [weak self] allCoins in
                 self?.allCoins = allCoins
                 self?.coinSubscription?.cancel()
             })
