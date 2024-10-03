@@ -40,7 +40,7 @@ final class CoinImageService {
                 return UIImage(data: data)
             })
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkManager.handleCompetion, receiveValue: { [weak self] image in
+            .sink(receiveCompletion: NetworkManager.handleCompletion, receiveValue: { [weak self] image in
                 guard let self, let image else { return }
                 self.image = image
                 self.imageSubscription?.cancel()
