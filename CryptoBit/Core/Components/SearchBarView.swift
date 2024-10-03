@@ -29,8 +29,8 @@ struct SearchBarView: View {
                         .foregroundColor(Colors.accentColor)
                         .opacity(searchText.isEmpty ? 0 : 1)
                         .onTapGesture {
+                            HapticManager.shared.impact(style: .heavy)
                             UIApplication.shared.endEditing()
-                            HapticManager.shared.impact(style: .medium)
                             searchText.removeAll()
                         }
                     ,alignment: .trailing
