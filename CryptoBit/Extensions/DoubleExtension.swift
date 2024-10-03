@@ -8,7 +8,6 @@
 import Foundation
 
 extension Double {
-    
     private var currencyFormatter2: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.usesGroupingSeparator = true
@@ -78,7 +77,6 @@ extension Double {
             return "\(sign)\(stringFormatted)K"
         case 0...:
             return self.asNumberString()
-
         default:
             return "\(sign)\(self)"
         }
