@@ -54,6 +54,7 @@ struct DetailView: View {
             }
         }
         .navigationTitle(vm.coin.name)
+        .background(Colors.backgroundColor)
     }
 }
 

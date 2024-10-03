@@ -47,7 +47,9 @@ struct PortfolioView: View {
                     removeSelectedCoin()
                 }
             }
+            .background(Colors.backgroundColor)
         }
+        
     }
 }
 
