@@ -23,11 +23,11 @@ struct DetailView: View {
     @StateObject private var vm: DetailViewModel
     @State private var showFullDescription = false
     
+    private let spacing: CGFloat = 30
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    private let spacing: CGFloat = 30
     
     init(coin: Coin) {
         _vm = StateObject(wrappedValue: DetailViewModel(coin: coin))

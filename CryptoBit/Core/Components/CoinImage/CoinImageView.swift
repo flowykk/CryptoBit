@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CoinImageView: View {
-    
     @StateObject var vm: CoinImageViewModel
     
     init(coin: Coin) {

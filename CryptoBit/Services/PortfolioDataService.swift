@@ -9,11 +9,11 @@ import Foundation
 import CoreData
 
 final class PortfolioDataService {
+    @Published var savedEntities: [Portfolio] = []
+    
     private let container: NSPersistentContainer
     private let containerName: String = "PortfolioContainer"
     private let entityName: String = "Portfolio"
-    
-    @Published var savedEntities: [Portfolio] = []
     
     init() {
         container = NSPersistentContainer(name: containerName)
