@@ -27,6 +27,5 @@ final class MarketDataService {
                 self?.marketData = globalData.data
                 self?.marketDataSubscription?.cancel()
             })
-
     }
 }

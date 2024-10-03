@@ -10,6 +10,7 @@ import SwiftUI
 struct PortfolioView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var vm: HomeViewModel
+    
     @State private var selectedCoin: Coin? = nil
     @State private var quantityText: String = ""
     @State private var showCheckmark: Bool = false
@@ -49,7 +50,6 @@ struct PortfolioView: View {
             }
             .background(Colors.backgroundColor)
         }
-        
     }
 }
 
@@ -88,7 +88,6 @@ extension PortfolioView {
         } else {
             quantityText = ""
         }
-        
     }
     
     private var portfolioInputSection: some View {

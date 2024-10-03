@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ChartView: View {
+    @State var chartTrimPercentage: CGFloat = 0
+    
     private let data: [Double]
     private let minY: Double
     private let maxY: Double
     private let lineColor: Color
     private let startingDate: Date
     private let endingDate: Date
-    
-    @State var chartTrimPercentage: CGFloat = 0
     
     init(coin: Coin) {
         data = coin.sparklineIn7D?.price ?? []

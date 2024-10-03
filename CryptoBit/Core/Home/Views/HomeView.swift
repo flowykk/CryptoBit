@@ -9,11 +9,10 @@ import Foundation
 import SwiftUI
 
 struct HomeView: View {
-    
     @EnvironmentObject private var vm: HomeViewModel
+    
     @State private var showPortfolio =  false
     @State private var showPortfolioView = false
-    
     @State private var selectedCoin: Coin? = nil
     @State private var showDetailView: Bool = false
     
@@ -51,7 +50,6 @@ struct HomeView: View {
                     }
                     .transition(.move(edge: .trailing))
                 }
-                
                 Spacer(minLength: 0)
             }
         }
@@ -86,7 +84,6 @@ extension HomeView {
                 .background(
                     CircleButtonAnimationView(animate: $showPortfolio)
                         .foregroundColor(Colors.accentColor)
-                    
                 )
             Spacer()
             Text(showPortfolio ? "Portfolio" : "Live Prices")
@@ -204,4 +201,3 @@ extension HomeView {
         .padding(.horizontal, 20)
     }
 }
- 
