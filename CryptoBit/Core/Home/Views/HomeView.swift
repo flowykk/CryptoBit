@@ -32,7 +32,7 @@ struct HomeView: View {
                 
                 SearchBarView(searchText: $vm.searchText)
                     .onTapGesture {
-                        HapticManager.shared.impact(style: .medium)
+                        HapticManager.shared.impact(style: .heavy)
                     }
                 
                 columnTitles
@@ -110,6 +110,7 @@ extension HomeView {
                     .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
                     .listRowBackground(Colors.backgroundColor)
                     .onTapGesture {
+                        HapticManager.shared.impact(style: .heavy)
                         segue(coin: coin)
                     }
             }
@@ -124,6 +125,7 @@ extension HomeView {
                     .listRowBackground(Colors.backgroundColor)
                     .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
                     .onTapGesture {
+                        HapticManager.shared.impact(style: .heavy)
                         segue(coin: coin)
                     }
             }
@@ -155,6 +157,7 @@ extension HomeView {
                     .rotationEffect(Angle(degrees: vm.sortOption == .rank ? 0 : 180))
             }
             .onTapGesture {
+                HapticManager.shared.impact(style: .heavy)
                 withAnimation(.default) {
                     vm.sortOption = vm.sortOption == .rank ? .rankReversed : .rank
                 }
@@ -169,6 +172,7 @@ extension HomeView {
                         .rotationEffect(Angle(degrees: vm.sortOption == .holdings ? 0 : 180))
                 }
                 .onTapGesture {
+                    HapticManager.shared.impact(style: .heavy)
                     withAnimation(.default) {
                         vm.sortOption = vm.sortOption == .holdings ? .holdingsReversed : .holdings
                     }
@@ -181,6 +185,7 @@ extension HomeView {
                     .rotationEffect(Angle(degrees: vm.sortOption == .price ? 0 : 180))
             }
             .onTapGesture {
+                HapticManager.shared.impact(style: .heavy)
                 withAnimation(.default) {
                     vm.sortOption = vm.sortOption == .price ? .priceReversed : .price
                 }
